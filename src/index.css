@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  /* Instagram Blue Color */
+  --color-instagram: #2563EB;
+  --color-instagram-dark: #1D4ED8;
+  --color-instagram-light: #F0F4FF;
+  --color-instagram-border: #E2E8F0;
+}
+ 
+
+html,body,#root{
+  height: 100%;
+  width: 100%;
+}
