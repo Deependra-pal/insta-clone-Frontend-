@@ -1,14 +1,15 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Auth Pages
-import Login from '../feature/auth/pages/login';
-import Register from '../feature/auth/pages/register';
+import Login from '../feature/auth/pages/Login';
+import Register from '../feature/auth/pages/Register';
+
 
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Redirect root path to login */}
-      <Route path="/" element={<Navigate to="/login" replace />} />
+      {/* Home Page */}
+      <Route path="/" element={<h1>This is home page.</h1>} />
 
       {/* Authentication */}
       <Route path="/login" element={<Login />} />

@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   registerUser,
   loginUser,
@@ -9,6 +10,7 @@ import {
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
   // Global Authentication State
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -85,6 +87,7 @@ export const AuthProvider = ({ children }) => {
       await logoutUser();
 
       setUser(null);
+      navigate('/');
     } catch (error) {
       console.error(error);
     } finally {

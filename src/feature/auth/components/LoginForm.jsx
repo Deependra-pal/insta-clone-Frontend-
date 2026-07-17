@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const { login, loading, error, setError } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,6 +18,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       await login(email, password);
+      navigate('/');
     } catch (err) {
       // Error is caught and stored in the AuthContext
     }
