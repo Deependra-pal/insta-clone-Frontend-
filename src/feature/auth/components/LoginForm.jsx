@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';    
+import { useAuth } from '../hooks/useAuth';
 
 const LoginForm = () => {
-  const [username, setUsername] = useState('');
+  const { login, loading, error, setError } = useAuth();
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
+  useEffect(() => {
+    if (setError) {
+      setError(null);
+    }
+  }, [setError]);
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log('--- Login Form Submitted ---');
-    console.log(`Username / Email: ${username}`);
-    console.log(`Password: ${password}`);
+    try {
+      await login(email, password);
+    } catch (err) {
+      // Error is caught and stored in the AuthContext
+    }
   };
 
   return (
@@ -27,6 +36,12 @@ const LoginForm = () => {
           </p>
         </div>
 
+        {error && (
+          <div className="mt-4 p-3 bg-red-50 border border-red-200 text-red-650 text-sm rounded-xl text-left w-full font-medium">
+            {typeof error === 'string' ? error : error.message || 'Login failed.'}
+          </div>
+        )}
+
         {/* Inputs and Submit Section */}
         <form onSubmit={handleLogin} className="w-full flex flex-col mt-10">
 
@@ -40,8 +55,8 @@ const LoginForm = () => {
               id="email"
               name="email"
               placeholder="name@mail.com or username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full h-[52px] text-sm px-4 border border-slate-200 rounded-xl bg-white outline-none focus:border-instagram focus:ring-4 focus:ring-instagram-light transition-all placeholder:text-slate-400 text-slate-800"
               required
             />
@@ -67,9 +82,10 @@ const LoginForm = () => {
           {/* Login Button */}
           <button
             type="submit"
-            className="w-full h-[52px] rounded-xl text-sm font-semibold text-white bg-instagram hover:bg-instagram-dark active:scale-[0.99] transition-all duration-200 mt-8 shadow-md shadow-blue-600/10 cursor-pointer"
+            disabled={loading}
+            className="w-full h-[52px] rounded-xl text-sm font-semibold text-white bg-instagram hover:bg-instagram-dark active:scale-[0.99] transition-all duration-200 mt-8 shadow-md shadow-blue-600/10 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Login
+            {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
 

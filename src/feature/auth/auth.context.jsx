@@ -4,19 +4,21 @@ import {
   loginUser,
   logoutUser,
   getMe,
-} from "../api/auth.api";
+} from "./services/auth.api"; // Wait, in the original it was "../api/auth.api" - let's check!
 
 export const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   // Global Authentication State
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   // Register
   const register = async (username, email, password) => {
     try {
       setLoading(true);
+      setError(null);
 
       const response = await registerUser(
         username,
@@ -29,6 +31,7 @@ const AuthProvider = ({ children }) => {
       return response;
     } catch (error) {
       console.error(error);
+      setError(error);
       throw error;
     } finally {
       setLoading(false);
@@ -39,6 +42,7 @@ const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       setLoading(true);
+      setError(null);
 
       const response = await loginUser(email, password);
 
@@ -47,6 +51,7 @@ const AuthProvider = ({ children }) => {
       return response;
     } catch (error) {
       console.error(error);
+      setError(error);
       throw error;
     } finally {
       setLoading(false);
@@ -57,6 +62,7 @@ const AuthProvider = ({ children }) => {
   const fetchCurrentUser = async () => {
     try {
       setLoading(true);
+      setError(null);
 
       const response = await getMe();
 
@@ -91,6 +97,8 @@ const AuthProvider = ({ children }) => {
       value={{
         user,
         loading,
+        error,
+        setError,
         register,
         login,
         fetchCurrentUser,
@@ -103,6 +111,3 @@ const AuthProvider = ({ children }) => {
 };
 
 export default AuthProvider;
-
-
- 

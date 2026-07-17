@@ -20,8 +20,6 @@ export async function registerUser(username, email, password) {
 }
 
 
-
-
 export async function loginUser(email, password) {
     try {
         const response = await api.post(
@@ -38,6 +36,15 @@ export async function loginUser(email, password) {
 export async function getMe() {
     try {
         const response = await api.get("/getMe")
+        return response.data;
+    } catch (error) {
+        throw error.response?.data?.message || "Something went wrong";
+    }
+}
+
+export async function logoutUser() {
+    try {
+        const response = await api.post("/logout");
         return response.data;
     } catch (error) {
         throw error.response?.data?.message || "Something went wrong";

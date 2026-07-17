@@ -1,17 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 const RegisterForm = () => {
+  const { register, loading, error, setError } = useAuth();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleRegister = (e) => {
+  useEffect(() => {
+    if (setError) {
+      setError(null);
+    }
+  }, [setError]);
+
+  const handleRegister = async (e) => {
     e.preventDefault();
-    console.log('--- Register Form Submitted ---');
-    console.log(`Username: ${username}`);
-    console.log(`Email Address: ${email}`);
-    console.log(`Password: ${password}`);
+    try {
+      await register(username, email, password);
+    } catch (err) {
+      // Error is caught and stored in the AuthContext
+    }
   };
 
   return (
@@ -27,6 +36,12 @@ const RegisterForm = () => {
             Join Instagram and get started.
           </p>
         </div>
+
+        {error && (
+          <div className="mt-4 p-3 bg-red-50 border border-red-200 text-red-650 text-sm rounded-xl text-left w-full font-medium">
+            {typeof error === 'string' ? error : error.message || 'Registration failed.'}
+          </div>
+        )}
 
         {/* Inputs and Submit Section */}
         <form onSubmit={handleRegister} className="w-full flex flex-col mt-10">
@@ -87,9 +102,10 @@ const RegisterForm = () => {
           {/* Register Button */}
           <button
             type="submit"
-            className="w-full h-[52px] rounded-xl text-sm font-semibold text-white bg-instagram hover:bg-instagram-dark active:scale-[0.99] transition-all duration-200 mt-8 shadow-md shadow-blue-600/10 cursor-pointer"
+            disabled={loading}
+            className="w-full h-[52px] rounded-xl text-sm font-semibold text-white bg-instagram hover:bg-instagram-dark active:scale-[0.99] transition-all duration-200 mt-8 shadow-md shadow-blue-600/10 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Register
+            {loading ? 'Registering...' : 'Register'}
           </button>
         </form>
 
