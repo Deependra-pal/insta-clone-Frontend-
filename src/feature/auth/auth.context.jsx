@@ -32,7 +32,11 @@ export const AuthProvider = ({ children }) => {
 
       return response;
     } catch (error) {
-      console.error(error);
+      if (error.errors) {
+        console.error("Detailed validation errors:", error.errors);
+      } else {
+        console.error(error);
+      }
       setError(error);
       throw error;
     } finally {
@@ -52,7 +56,11 @@ export const AuthProvider = ({ children }) => {
 
       return response;
     } catch (error) {
-      console.error(error);
+      if (error.errors) {
+        console.error("Detailed validation errors:", error.errors);
+      } else {
+        console.error(error);
+      }
       setError(error);
       throw error;
     } finally {
@@ -72,7 +80,11 @@ export const AuthProvider = ({ children }) => {
 
       return response;
     } catch (error) {
-      console.error(error);
+      if (error.errors) {
+        console.error("Detailed validation errors:", error.errors);
+      } else {
+        console.error(error);
+      }
       setUser(null);
     } finally {
       setLoading(false);

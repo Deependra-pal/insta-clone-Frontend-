@@ -50,7 +50,7 @@ const LoginForm = () => {
           {/* Email address field */}
           <div className="flex flex-col">
             <label htmlFor="email" className="text-sm font-medium text-slate-700 mb-2.5">
-              Email Address
+              Email Address / Username
             </label>
             <input
               type="text"
