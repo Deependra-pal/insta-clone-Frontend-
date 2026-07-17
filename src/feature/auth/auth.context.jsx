@@ -1,11 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   registerUser,
   loginUser,
   logoutUser,
   getMe,
-} from "./services/auth.api"; // Wait, in the original it was "../api/auth.api" - let's check!
+} from "./services/auth.api";
 
 export const AuthContext = createContext();
 
@@ -13,8 +13,12 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   // Global Authentication State
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchCurrentUser();
+  }, []);
 
   // Register
   const register = async (username, email, password) => {
@@ -28,7 +32,7 @@ export const AuthProvider = ({ children }) => {
         password
       );
 
-      setUser(response.user);
+      setUser(response.data.user);
 
       return response;
     } catch (error) {
@@ -52,7 +56,7 @@ export const AuthProvider = ({ children }) => {
 
       const response = await loginUser(email, password);
 
-      setUser(response.user);
+      setUser(response.data.user);
 
       return response;
     } catch (error) {
@@ -76,7 +80,7 @@ export const AuthProvider = ({ children }) => {
 
       const response = await getMe();
 
-      setUser(response.user);
+      setUser(response.data.user);
 
       return response;
     } catch (error) {

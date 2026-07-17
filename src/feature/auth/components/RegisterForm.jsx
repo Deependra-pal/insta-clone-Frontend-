@@ -48,10 +48,8 @@ const RegisterForm = () => {
         {/* Inputs and Submit Section */}
         <form onSubmit={handleRegister} className="w-full flex flex-col mt-10">
 
-
-
           {/* Username field */}
-          <div className="flex flex-col mt-6">
+          <div className="flex flex-col">
             <label htmlFor="username" className="text-sm font-medium text-slate-700 mb-2.5">
               Username
             </label>

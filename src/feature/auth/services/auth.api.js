@@ -45,7 +45,7 @@ export async function loginUser(emailOrUsername, password) {
 
 export async function getMe() {
     try {
-        const response = await api.get("/getMe")
+        const response = await api.get("/get-me")
         return response.data;
     } catch (error) {
         const apiError = new Error(error.response?.data?.message || "Something went wrong");

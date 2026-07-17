@@ -25,8 +25,8 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="   min-h-screen w-full bg-[#F8FAFC] flex items-center justify-center p-4 sm:p-6">
-      <div className=" p-[20px] bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-100/30 p-10 sm:p-12 max-w-[450px] w-full h-auto transition-all duration-300 mx-auto">
+    <div className="min-h-screen w-full bg-[#F8FAFC] flex items-center justify-center p-4 sm:p-6">
+      <div className="bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-100/30 p-10 sm:p-12 max-w-[450px] w-full h-auto transition-all duration-300 mx-auto">
 
         {/* Header Section */}
         <div className="flex flex-col items-start w-full">
@@ -92,7 +92,7 @@ const LoginForm = () => {
         </form>
 
         {/* Footer Section */}
-        <div className="text-center w-full text-sm text-slate-600 mt-6">
+        <div className="text-center w-full text-sm text-slate-650 mt-6">
           Don't have an account?{' '}
           <Link to="/register" className="font-bold text-instagram hover:text-instagram-dark transition-colors ml-1">
             Register
