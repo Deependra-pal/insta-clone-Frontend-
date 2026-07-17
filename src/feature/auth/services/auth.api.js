@@ -34,3 +34,12 @@ export async function loginUser(email, password) {
         throw error.response?.data?.message || "Something went wrong";
     }
 }
+
+export async function getMe() {
+    try {
+        const response = await api.get("/getMe")
+        return response.data;
+    } catch (error) {
+        throw error.response?.data?.message || "Something went wrong";
+    }
+}
